@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SurvivalNorge</title>
-  <meta name="description" content="SurvivalNorge er et gaming community for voksne spillere. Bli med på Minecraft-server og Discord.">
+  <meta name="description" content="SurvivalNorge er et norsk gaming community for voksne. Bli med på Discord og sjekk ut Minecraft-serveren vår.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,6 @@
       --accent: #55f2c3;
       --accent-dark: #2fd3a5;
       --accent-glow: rgba(85,242,195,0.25);
-      --danger: #ff7676;
       --online: #64e291;
     }
 
@@ -133,10 +132,11 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 18px;
-      margin: 32px 0 20px;
+      margin: 32px 0 24px;
     }
 
-    .card {
+    .card,
+    .discord-box {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 22px;
@@ -146,18 +146,21 @@
       transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
     }
 
-    .card:hover {
+    .card:hover,
+    .discord-box:hover {
       transform: translateY(-4px);
       background: var(--card-strong);
       border-color: rgba(255,255,255,0.18);
     }
 
-    .card h2 {
+    .card h2,
+    .discord-box h2 {
       margin: 0 0 12px;
       font-size: 20px;
     }
 
-    .card p {
+    .card p,
+    .discord-box p {
       margin: 0;
       color: var(--muted);
       line-height: 1.65;
@@ -206,35 +209,40 @@
     }
 
     .discord-wrap {
-      margin: 30px 0 56px;
+      margin: 0 0 56px;
     }
 
-    .discord-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 22px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+    .discord-actions {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .discord-box h2 {
-      margin: 0 0 10px;
-      font-size: 22px;
-    }
-
-    .discord-box p {
-      margin: 0 0 18px;
+    .discord-meta {
+      margin-top: 18px;
       color: var(--muted);
-      line-height: 1.65;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 14px;
     }
 
-    .discord-widget {
-      width: 100%;
-      min-height: 500px;
-      border: 0;
-      border-radius: 16px;
-      background: rgba(0,0,0,0.18);
+    .discord-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 0 0 40px;
+      font-size: 14px;
     }
 
     .toast {
@@ -260,20 +268,9 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 0 0 40px;
-      font-size: 14px;
-    }
-
     @media (max-width: 980px) {
       .grid {
         grid-template-columns: 1fr;
-      }
-
-      .discord-widget {
-        min-height: 420px;
       }
     }
 
@@ -282,8 +279,14 @@
         padding-top: 56px;
       }
 
-      .discord-widget {
-        min-height: 380px;
+      .actions,
+      .discord-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -335,15 +338,21 @@
       <div class="discord-box">
         <h2>Discord</h2>
         <p>
-          Bli med i Discord-serveren for å chatte, få serverinfo og holde deg oppdatert.
+          Bli med i Discord-serveren for å chatte, få serverinfo og holde deg oppdatert på hva som skjer i communityet.
         </p>
-        <iframe
-          class="discord-widget"
-          src="https://discord.com/widget?id=YOUR_SERVER_ID&theme=dark"
-          allowtransparency="true"
-          frameborder="0"
-          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-        </iframe>
+
+        <div class="discord-actions">
+          <a class="btn btn-primary" href="https://discord.gg/4n9xAeGeyn" target="_blank" rel="noopener noreferrer">
+            Bli med på Discord
+          </a>
+        </div>
+
+        <div class="discord-meta">
+          <div class="discord-pill">💬 Chat</div>
+          <div class="discord-pill">🎮 Multiplayer</div>
+          <div class="discord-pill">📢 Oppdateringer</div>
+          <div class="discord-pill">🎙 Voice</div>
+        </div>
       </div>
     </section>
 
