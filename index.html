@@ -187,7 +187,9 @@
       <article class="card" id="server">
         <h2>Minecraft-server</h2>
         <p>ATM10 TTS-server for communityet.</p>
-        <div class="server-ip">atm10tts.survivalnorge.no</div>
+        <div class="server-ip" onclick="copyIP()" style="cursor:pointer;">
+          atm10tts.survivalnorge.no (klikk for å kopiere)
+        </div>
       </article>
 
       <article class="card">
@@ -223,6 +225,10 @@
       .catch(() => {
         document.getElementById("server-status").textContent = "Kunne ikke hente status akkurat nå";
       });
+    function copyIP() {
+  navigator.clipboard.writeText("atm10tts.survivalnorge.no");
+  alert("Server IP kopiert!");
+}
   </script>
 </body>
 </html>
