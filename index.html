@@ -2,17 +2,227 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8">
-  <title>SurvivalNorge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SurvivalNorge</title>
+  <meta name="description" content="SurvivalNorge er et gaming community for voksne spillere. Bli med på Minecraft-server og Discord.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1: #0b1020;
+      --bg2: #11182b;
+      --card: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.12);
+      --text: #f5f7fb;
+      --muted: #b7c0d1;
+      --accent: #55f2c3;
+      --accent-dark: #2fd3a5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(85,242,195,0.14), transparent 35%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 72px 0 40px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(36px, 7vw, 72px);
+      line-height: 1.02;
+      margin: 0 0 16px;
+      letter-spacing: 1px;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: clamp(17px, 2.6vw, 21px);
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #06120f;
+      box-shadow: 0 10px 30px rgba(85,242,195,0.18);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 28px 0 56px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .server-ip {
+      margin-top: 10px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 0 0 40px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-<body style="font-family: Arial; text-align:center; margin-top:50px;">
-  <h1>🎮 SurvivalNorge</h1>
-  <p>Gaming community for voksne</p>
+<body>
+  <main class="container">
+    <section class="hero">
+      <div class="badge">Gaming community for voksne</div>
+      <h1>SurvivalNorge</h1>
+      <p class="lead">
+        Et norsk gaming community med fokus på survival, multiplayer og hyggelig stemning.
+        Bli med på Discord og sjekk ut Minecraft-serveren vår.
+      </p>
 
-  <h2>🖥 Server</h2>
-  <p>atm10tts.survivalnorge.no</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://discord.gg/4n9xAeGeyn" target="_blank" rel="noopener noreferrer">Bli med på Discord</a>
+        <a class="btn btn-secondary" href="#server">Se serverinfo</a>
+      </div>
+    </section>
 
-  <h2>💬 Discord</h2>
-  <p>Kommer snart</p>
+    <section class="grid">
+      <article class="card" id="server">
+        <h2>Minecraft-server</h2>
+        <p>ATM10 TTS-server for communityet.</p>
+        <div class="server-ip">atm10tts.survivalnorge.no</div>
+      </article>
+
+      <article class="card">
+        <h2>Status</h2>
+        <p>Live status fra Minecraft-serveren.</p>
+        <div class="status" id="server-status">Sjekker serverstatus...</div>
+      </article>
+
+      <article class="card">
+        <h2>Community</h2>
+        <p>For voksne spillere som liker survival, samarbeid og multiplayer. Discord er samlingspunktet vårt.</p>
+      </article>
+    </section>
+
+    <div class="footer">
+      © 2026 SurvivalNorge
+    </div>
+  </main>
+
+  <script>
+    fetch("https://api.mcsrvstat.us/2/atm10tts.survivalnorge.no")
+      .then(response => response.json())
+      .then(data => {
+        const el = document.getElementById("server-status");
+        if (data.online) {
+          const online = data.players && typeof data.players.online !== "undefined" ? data.players.online : "?";
+          const max = data.players && typeof data.players.max !== "undefined" ? data.players.max : "?";
+          el.textContent = `🟢 Online (${online}/${max})`;
+        } else {
+          el.textContent = "🔴 Offline";
+        }
+      })
+      .catch(() => {
+        document.getElementById("server-status").textContent = "Kunne ikke hente status akkurat nå";
+      });
+  </script>
 </body>
 </html>
