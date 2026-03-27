@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SurvivalNorge</title>
-  <meta name="description" content="SurvivalNorge er et norsk gaming community for voksne. Bli med på Discord og sjekk ut Minecraft-serveren vår.">
+  <meta name="description" content="SurvivalNorge er et norsk gaming community for voksne. Bli med på Discord og sjekk ut Minecraft-serverne våre.">
 
   <link rel="icon" type="image/png" href="favicon.png">
 
@@ -152,9 +152,16 @@
       margin: 32px 0 24px;
     }
 
+    .grid-servers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin: 0 0 24px;
+    }
+
     .grid-two {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 18px;
       margin: 0 0 56px;
     }
@@ -335,6 +342,7 @@
 
     @media (max-width: 980px) {
       .grid,
+      .grid-servers,
       .grid-two {
         grid-template-columns: 1fr;
       }
@@ -373,32 +381,32 @@
       <h1>SurvivalNorge</h1>
       <p class="lead">
         Et norsk gaming community med fokus på survival, multiplayer og hyggelig stemning.
-        Bli med på Discord og sjekk ut Minecraft-serveren vår.
+        Bli med på Discord og sjekk ut Minecraft-serverne våre.
       </p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://discord.gg/4n9xAeGeyn" target="_blank" rel="noopener noreferrer">
           Join Discord 🚀
         </a>
-        <a class="btn btn-secondary" href="#server">
+        <a class="btn btn-secondary" href="#servers">
           Se serverinfo
         </a>
       </div>
     </section>
 
-    <section class="grid">
-      <article class="card" id="server">
-        <h2>Minecraft-server</h2>
-        <p>ATM10 TTS-server for communityet.</p>
-        <div class="server-ip" onclick="copyIP()">atm10tts.survivalnorge.no</div>
+    <section class="grid" id="servers">
+      <article class="card">
+        <h2>ATM10 TTS</h2>
+        <p>Modded Minecraft med ATM10 TTS.</p>
+        <div class="server-ip" onclick="copyIP('atm10tts.survivalnorge.no')">atm10tts.survivalnorge.no</div>
         <div class="helper-text">Klikk for å kopiere serveradresse</div>
       </article>
 
       <article class="card">
-        <h2>Status</h2>
-        <p>Live status fra Minecraft-serveren.</p>
-        <div class="status" id="server-status">Sjekker serverstatus...</div>
-        <div class="motd" id="server-motd">Laster MOTD...</div>
+        <h2>Vanilla</h2>
+        <p>Ren survival med Paper, uten teleport og economy.</p>
+        <div class="server-ip" onclick="copyIP('play.survivalnorge.no')">play.survivalnorge.no</div>
+        <div class="helper-text">Klikk for å kopiere serveradresse</div>
       </article>
 
       <article class="card">
@@ -432,21 +440,43 @@
       </div>
     </section>
 
-    <section class="grid-two">
+    <section class="grid-servers">
       <article class="card">
-        <h2>Live serverinfo</h2>
-        <p>Oppdatert info direkte fra Minecraft-serveren.</p>
+        <h2>ATM10 TTS</h2>
+        <p>Live status og info fra modded-serveren.</p>
+        <div class="status" id="atm10-status">Sjekker serverstatus...</div>
+        <div class="motd" id="atm10-motd">Laster MOTD...</div>
 
         <div class="stat-row">
-          <div class="stat-pill" id="players-pill">👥 Spillere: ...</div>
-          <div class="stat-pill" id="ping-pill">📡 Ping: ...</div>
+          <div class="stat-pill" id="atm10-players">👥 Spillere: ...</div>
+          <div class="stat-pill" id="atm10-ping">📡 Ping: ...</div>
         </div>
       </article>
 
       <article class="card">
-        <h2>Spillerliste</h2>
+        <h2>Vanilla</h2>
+        <p>Live status og info fra vanilla-serveren.</p>
+        <div class="status" id="vanilla-status">Sjekker serverstatus...</div>
+        <div class="motd" id="vanilla-motd">Laster MOTD...</div>
+
+        <div class="stat-row">
+          <div class="stat-pill" id="vanilla-players">👥 Spillere: ...</div>
+          <div class="stat-pill" id="vanilla-ping">📡 Ping: ...</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid-two">
+      <article class="card">
+        <h2>Spillerliste — ATM10 TTS</h2>
         <p>Spillere som er online akkurat nå.</p>
-        <div id="player-list" class="player-empty">Laster spillerliste...</div>
+        <div id="atm10-player-list" class="player-empty">Laster spillerliste...</div>
+      </article>
+
+      <article class="card">
+        <h2>Spillerliste — Vanilla</h2>
+        <p>Spillere som er online akkurat nå.</p>
+        <div id="vanilla-player-list" class="player-empty">Laster spillerliste...</div>
       </article>
     </section>
 
@@ -468,70 +498,75 @@
       }, 2200);
     }
 
-    function copyIP() {
-      navigator.clipboard.writeText("atm10tts.survivalnorge.no")
-        .then(() => showToast("Serveradresse kopiert!"))
+    function copyIP(ip) {
+      navigator.clipboard.writeText(ip)
+        .then(() => showToast(`Serveradresse kopiert: ${ip}`))
         .catch(() => showToast("Kunne ikke kopiere automatisk"));
     }
 
-    fetch("https://api.mcsrvstat.us/2/atm10tts.survivalnorge.no")
-      .then(response => response.json())
-      .then(data => {
-        const statusEl = document.getElementById("server-status");
-        const motdEl = document.getElementById("server-motd");
-        const playersPill = document.getElementById("players-pill");
-        const pingPill = document.getElementById("ping-pill");
-        const playerListEl = document.getElementById("player-list");
+    function updateServer(prefix, host) {
+      fetch(`https://api.mcsrvstat.us/2/${host}`)
+        .then(response => response.json())
+        .then(data => {
+          const statusEl = document.getElementById(`${prefix}-status`);
+          const motdEl = document.getElementById(`${prefix}-motd`);
+          const playersPill = document.getElementById(`${prefix}-players`);
+          const pingPill = document.getElementById(`${prefix}-ping`);
+          const playerListEl = document.getElementById(`${prefix}-player-list`);
 
-        if (data.online) {
-          const online = data.players?.online ?? "?";
-          const max = data.players?.max ?? "?";
+          if (data.online) {
+            const online = data.players?.online ?? "?";
+            const max = data.players?.max ?? "?";
 
-          statusEl.innerHTML = `🟢 Online (${online}/${max})<small>Serveren svarer nå</small>`;
-          playersPill.textContent = `👥 Spillere: ${online}/${max}`;
+            statusEl.innerHTML = `🟢 Online (${online}/${max})<small>Serveren svarer nå</small>`;
+            playersPill.textContent = `👥 Spillere: ${online}/${max}`;
 
-          if (typeof data.debug?.ping !== "undefined") {
-            pingPill.textContent = `📡 Ping: ${data.debug.ping} ms`;
+            if (typeof data.debug?.ping !== "undefined") {
+              pingPill.textContent = `📡 Ping: ${data.debug.ping} ms`;
+            } else {
+              pingPill.textContent = "📡 Ping: Ukjent";
+            }
+
+            if (data.motd && data.motd.clean && data.motd.clean.length) {
+              motdEl.innerHTML = data.motd.clean.join("<br>");
+            } else {
+              motdEl.textContent = "Ingen MOTD tilgjengelig";
+            }
+
+            const playerNames = data.players?.list || [];
+
+            if (playerNames.length > 0) {
+              const wrapped = playerNames
+                .map(name => `<div class="player-item">${name}</div>`)
+                .join("");
+              playerListEl.className = "player-list";
+              playerListEl.innerHTML = wrapped;
+            } else {
+              playerListEl.className = "player-empty";
+              playerListEl.textContent = "Ingen spillere online akkurat nå";
+            }
           } else {
-            pingPill.textContent = "📡 Ping: Ukjent";
-          }
-
-          if (data.motd && data.motd.clean && data.motd.clean.length) {
-            motdEl.innerHTML = data.motd.clean.join("<br>");
-          } else {
-            motdEl.textContent = "Ingen MOTD tilgjengelig";
-          }
-
-          const playerNames = data.players?.list || [];
-
-          if (playerNames.length > 0) {
-            const wrapped = playerNames
-              .map(name => `<div class="player-item">${name}</div>`)
-              .join("");
-            playerListEl.className = "player-list";
-            playerListEl.innerHTML = wrapped;
-          } else {
+            statusEl.innerHTML = `🔴 Offline<small>Serveren svarer ikke akkurat nå</small>`;
+            motdEl.textContent = "";
+            playersPill.textContent = "👥 Spillere: 0/0";
+            pingPill.textContent = "📡 Ping: Offline";
             playerListEl.className = "player-empty";
-            playerListEl.textContent = "Ingen spillere online akkurat nå";
+            playerListEl.textContent = "Serveren er offline akkurat nå";
           }
-        } else {
-          statusEl.innerHTML = `🔴 Offline<small>Serveren svarer ikke akkurat nå</small>`;
-          motdEl.textContent = "";
-          playersPill.textContent = "👥 Spillere: 0/0";
-          pingPill.textContent = "📡 Ping: Offline";
+        })
+        .catch(() => {
+          document.getElementById(`${prefix}-status`).innerHTML = `⚪ Ukjent<small>Kunne ikke hente status akkurat nå</small>`;
+          document.getElementById(`${prefix}-motd`).textContent = "";
+          document.getElementById(`${prefix}-players`).textContent = "👥 Spillere: Ukjent";
+          document.getElementById(`${prefix}-ping`).textContent = "📡 Ping: Ukjent";
+          const playerListEl = document.getElementById(`${prefix}-player-list`);
           playerListEl.className = "player-empty";
-          playerListEl.textContent = "Serveren er offline akkurat nå";
-        }
-      })
-      .catch(() => {
-        document.getElementById("server-status").innerHTML = `⚪ Ukjent<small>Kunne ikke hente status akkurat nå</small>`;
-        document.getElementById("server-motd").textContent = "";
-        document.getElementById("players-pill").textContent = "👥 Spillere: Ukjent";
-        document.getElementById("ping-pill").textContent = "📡 Ping: Ukjent";
-        const playerListEl = document.getElementById("player-list");
-        playerListEl.className = "player-empty";
-        playerListEl.textContent = "Kunne ikke hente spillerliste akkurat nå";
-      });
+          playerListEl.textContent = "Kunne ikke hente spillerliste akkurat nå";
+        });
+    }
+
+    updateServer("atm10", "atm10tts.survivalnorge.no");
+    updateServer("vanilla", "play.survivalnorge.no");
   </script>
 </body>
 </html>
