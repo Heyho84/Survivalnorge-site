@@ -546,6 +546,18 @@
         .catch(() => showToast("Kunne ikke kopiere automatisk"));
     }
 
+    function formatPingValue(debugPing) {
+      if (typeof debugPing === "number" && Number.isFinite(debugPing)) {
+        return `📡 Ping: ${debugPing} ms`;
+      }
+
+      if (debugPing === true) {
+        return "📡 Serveren svarer";
+      }
+
+      return "📡 Ping: Ukjent";
+    }
+
     function updateServer(prefix, host) {
       fetch(`https://api.mcsrvstat.us/2/${host}`)
         .then(response => response.json())
@@ -562,12 +574,7 @@
 
             statusEl.innerHTML = `<span class="status-online">🟢 Online</span>`;
             playersEl.textContent = `👥 Spillere: ${online}/${max}`;
-
-            if (typeof data.debug?.ping !== "undefined") {
-              pingEl.textContent = `📡 Ping: ${data.debug.ping} ms`;
-            } else {
-              pingEl.textContent = "📡 Ping: Ukjent";
-            }
+            pingEl.textContent = formatPingValue(data.debug?.ping);
 
             if (data.motd && data.motd.clean && data.motd.clean.length) {
               motdEl.innerHTML = data.motd.clean.join("<br>");
